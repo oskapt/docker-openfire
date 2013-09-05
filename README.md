@@ -4,6 +4,9 @@ This will build a vanilla installation of [Openfire](http://www.igniterealtime.o
 inside of a [Docker](http://docker.io) container.  Because Openfire wants persistent data, I've copied over
 the vanilla contents of `/var/lib/openfire` and `/etc/openfire` to be mounted as persistent volumes. 
 
+This container also contains a bonus installation of [git-annex](http://git-annex.branchable.com) because why
+else would you need to run an XMPP server?  :P
+
 ## Download The Container
 
 You can download and run a fully-functional container from the Docker Registry.
