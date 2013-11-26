@@ -2,8 +2,8 @@ FROM ubuntu
 
 MAINTAINER Adrian Goins "monachus@arces.net"
 
-RUN apt-get -qq update
-RUN apt-get install -qq openjdk-7-jre-headless default-jre
+RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main restricted universe" > /etc/apt/sources.list && apt-get -qq update
+RUN apt-get install -qq python-software-properties supervisor openjdk-7-jre-headless default-jre
 
 ADD openfire_3.8.2_all.deb /tmp/
 RUN dpkg -i /tmp/openfire_3.8.2_all.deb
