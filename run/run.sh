@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONTAINER="monachus/openfire"
+CONTAINER="docker.monach.us/openfire"
 
 # Uncomment this to background the container
 DAEMON="-d"

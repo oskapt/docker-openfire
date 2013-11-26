@@ -1,9 +1,9 @@
-FROM monachus/base
+FROM ubuntu
 
 MAINTAINER Adrian Goins "monachus@arces.net"
 
-RUN apt-get -y update
-RUN apt-get install -y openjdk-7-jre-headless default-jre
+RUN apt-get -qq update
+RUN apt-get install -qq openjdk-7-jre-headless default-jre
 
 ADD openfire_3.8.2_all.deb /tmp/
 RUN dpkg -i /tmp/openfire_3.8.2_all.deb
