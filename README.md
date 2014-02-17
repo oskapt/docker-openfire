@@ -10,7 +10,7 @@ If you prefer to build the container yourself, you'll need to do some prep work.
 
 1. Enter the `build` directory.
 2. Download Openfire from [here](http://www.igniterealtime.org/downloads/index.jsp#openfire) and place it 
-in this directory.  If it's not version 3.8.2, edit `Dockerfile` to reflect the correct name
+in this directory.  If it's not version 3.9.1, edit `Dockerfile` to reflect the correct name
 of the file in the `ADD` statement.
 3. Edit `docker.conf` and adjust the username/password or port for where `supervisord` listens for web
 control of its processes.  If you don't want this feature, remove that section of the conf file.
