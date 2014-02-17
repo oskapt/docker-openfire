@@ -5,7 +5,7 @@ MAINTAINER Adrian Goins "monachus@arces.net"
 RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main restricted universe" > /etc/apt/sources.list && apt-get -qq update
 RUN apt-get install -qq python-software-properties supervisor openjdk-7-jre-headless default-jre sudo
 
-ADD openfire_3.1.1_all.deb /tmp/
+ADD openfire_3.9.1_all.deb /tmp/
 RUN dpkg -i /tmp/openfire_3.9.1_all.deb
 
 ADD docker.conf /etc/supervisor/conf.d/
