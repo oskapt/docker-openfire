@@ -16,7 +16,7 @@ of the file in the `ADD` statement.
 control of its processes.  If you don't want this feature, remove that section of the conf file.
 4. Run `docker build` and optionally give it a tag that you like.  
 
-## Running the Container
+## Running The Container
 
 1. From within the `run` directory, optionally edit the `run.sh` file to change the tag for the 
 container.  
@@ -27,4 +27,15 @@ As long as you start future iterations of the container from this directory, cha
 plugins, and the embedded database will be preserved.
 3. If you want to restart Openfire without restarting the entire container, you can do so via the web
 interface to `supervisord`, which is running on port 9999.  
+
+## Uprading The Container
+
+When the time comes to upgrade the container, it's quite simple.
+
+1.  Stop and remove the existing container with `docker kill` and `docker rm`.  All of your data is
+persistent.
+2.  Make a backup of `run/etc/` and `run/lib/` just in case something goes south.
+3.  Follow the build steps from above for the latest version of Openfire.
+4.  Start your new container.
+5.  If everything went well, remove the backups.
 
