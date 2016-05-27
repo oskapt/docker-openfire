@@ -1,0 +1,21 @@
+---
+# openfire compose instructions
+data:
+  container_name: openfire-data
+  image: busybox
+  volumes:
+    - /opt/docker/openfire/conf:/usr/share/openfire/conf
+    - /opt/docker/openfire/security:/usr/share/openfire/resources/security
+    - /opt/docker/openfire/embedded-db:/usr/share/openfire/embedded-db
+    - /opt/docker/openfire/plugins:/usr/share/openfire/plugins
+openfire:
+  container_name: openfire
+  image: monachus/openfire:4
+  volumes_from:
+    - data
+  ports:
+    - "7777:7777"
+    - "5222:5222"
+    - "9090:9090"
+    - "9091:9091"
+    - "5269:5269"
