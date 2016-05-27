@@ -42,7 +42,7 @@ appropriate places, start Openfire, and tail the logfile.
 
 ## Connecting To Openfire
 
-You'll be able to connect by opening a browser and going to [https://localhost:9090](https://localhost:9090),
+You'll be able to connect by opening a browser and going to [http://localhost:9090](http://localhost:9090),
 optionally replacing `localhost` with the hostname or IP of your Docker host system.
 
 If you're doing an upgrade and have configured TLS, you'll be able to connect to the admin console over HTTPS on port 9091.
