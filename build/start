@@ -1,5 +1,20 @@
-#!/bin/bash
+#!/bin/ash
 
-chown -R openfire:openfire /etc/openfire /var/lib/openfire
-/usr/bin/supervisord -n
+# start openfire
+/usr/share/openfire/bin/openfire start
+
+# let openfire start
+echo "Sleeping to let Openfire start."
+count=0
+while [ ! -e /usr/share/openfire/logs/all.log ]; do
+    if [ $count -eq 60 ]; then
+        echo "Error starting Openfire. Exiting"
+        exit 1
+    fi
+    count=$(( $count + 1 ))
+    sleep 1
+done
+
+# tail the log
+tail -f /usr/share/openfire/logs/all.log
 

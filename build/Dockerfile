@@ -1,17 +1,23 @@
-FROM ubuntu
+FROM anapsix/alpine-java
 
 MAINTAINER Adrian Goins "monachus@arces.net"
 
-RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main restricted universe" > /etc/apt/sources.list && apt-get -qq update
-RUN apt-get install -qq python-software-properties supervisor openjdk-7-jre-headless default-jre sudo
+RUN apk --no-cache add ca-certificates
 
-ADD openfire_3.9.1_all.deb /tmp/
-RUN dpkg -i /tmp/openfire_3.9.1_all.deb
+# Install [dumb-init](https://github.com/Yelp/dumb-init)
+ENV DI_VERSION 1.0.2
+RUN cd /tmp && \
+    wget -q -O /bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_${DI_VERSION}_amd64 && \
+    chmod +x /bin/dumb-init
 
-ADD docker.conf /etc/supervisor/conf.d/
+# Install [Openfire](http://www.igniterealtime.org/projects/openfire/index.jsp)
+ENV OF_VERSION 4.0.2
+RUN cd /usr/share && \
+    wget -q -O - http://www.igniterealtime.org/downloadServlet?filename=openfire/openfire_$( echo ${OF_VERSION} | sed -e 's/\./_/g' ).tar.gz | tar xzf -
+
 ADD start /start
 RUN chmod 755 /start
 
-EXPOSE 9090 9091 5222 5223 5269 9999
+EXPOSE 9090 9091 5222 5223 5269
 
-ENTRYPOINT ["/bin/bash", "/start"]
+CMD ["dumb-init", "/start"]
