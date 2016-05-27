@@ -71,3 +71,22 @@ persistent.
 4.  Start your new container.
 5.  If everything went well, remove the backups.
 
+## Upgrading from Openfire 3 to Openfire 4
+
+### Caveats
+
+* `/etc/openfire` is now `/usr/share/openfire/conf`
+* There is no more `lib` directory. Plugins are at the top level.
+* `/etc/openfire/security` is now `/resources/security`
+* Openfire runs as `daemon` instead of its own user
+
+1. Backup `lib/embedded-db`, `lib/plugins`, and `etc`
+2. Stop and remove the v3 container.
+3. Rename your current `$rundir` to `$rundir.old`
+3. From this source copy `run` to `$rundir` (creating a new directory)
+4. From your backups, copy the following:
+   * The contents of `etc/security` to `security`
+   * The remaining contents of `etc` to `conf` (excluding the `security` folder)
+   * The contents of `lib/plugins` to `plugins` _except_ the `admin` folder
+   * The contents of `lib/embedded-db` to `embedded-db`
+5. Restart the container via your chosen means
