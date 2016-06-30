@@ -2,7 +2,7 @@ FROM anapsix/alpine-java
 
 MAINTAINER Adrian Goins "monachus@arces.net"
 
-RUN apk --no-cache add ca-certificates
+RUN apk --no-cache add ca-certificates wget
 
 # Install [dumb-init](https://github.com/Yelp/dumb-init)
 ENV DI_VERSION 1.0.2
