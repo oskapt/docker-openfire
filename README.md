@@ -14,10 +14,9 @@ the vanilla contents of the following directories to be mounted as persistent vo
 If you prefer to build the container yourself, you'll need to do some prep work.
 
 1. Enter the `build` directory.
-2. Download Openfire from [here](http://www.igniterealtime.org/downloads/index.jsp#openfire) and place it
-in this directory.  If it's not version 3.9.1, edit `Dockerfile` to reflect the correct name
-of the file in the `ADD` statement.
-3. . Run `docker build` and optionally give it a tag that you like.
+2. Review the Dockerfile for the version of Openfire that you wish to install. Change the environment variable `OF_VERSION` to match.
+3. While you're there, review the version of `dumb-init`. If you need to change it, change the `DI_VERSION` environment variable.
+4. . Run `docker build` and optionally give it a tag that you like.
 
 ## Running The Container
 
@@ -28,21 +27,25 @@ presume `/opt/docker/openfire`, which I'll refer to as `$rundir`.
 ### Via Docker Compose
 
 1. From `$rundir`, optionally edit `docker-compose.yml` to change the tag for the
-container.
-2. Run `docker-compose up` to start the container in the foreground or `docker-compose up -d` to
+container. 
+2. If you don't want to use the admin console over HTTP, remove 9090 from the ports config.
+3. Run `docker-compose up` to start the container in the foreground or `docker-compose up -d` to
 start it in the background.
 
 ### Manually
 
 1. From `$rundir`, optionally edit the `run.sh` file to change the tag for the
 container.
-2. Execute `run.sh` to kick off the container.  This will mount the directories in their
+2. If you don't want to use the admin console over HTTP, remove 9090 from the ports config.
+3. Execute `run.sh` to kick off the container.  This will mount the directories in their
 appropriate places, start Openfire, and tail the logfile.
 
 ## Connecting To Openfire
 
-You'll be able to connect by opening a browser and going to [https://localhost:9091](https://localhost:9090),
+You'll be able to connect by opening a browser and going to [http://localhost:9090](http://localhost:9090),
 optionally replacing `localhost` with the hostname or IP of your Docker host system.
+
+If you're doing an upgrade and have configured TLS, you'll be able to connect to the admin console over HTTPS on port 9091.
 
 As long as you start future iterations of the container from this directory, changes to the configuration,
 plugins, and the embedded database will be preserved.
@@ -56,7 +59,7 @@ is provided in case your origin container only provides the JRE.
 
 1. Connect to the container and start a shell
 
-    $ docker run -it monachus/openfire /bin/ash
+        $ docker run -it monachus/openfire /bin/ash
 
 2. Follow along with the post, changing `/etc/openfire/security` to `/usr/share/openfire/resources/security`
 
@@ -77,8 +80,10 @@ persistent.
 
 * `/etc/openfire` is now `/usr/share/openfire/conf`
 * There is no more `lib` directory. Plugins are at the top level.
-* `/etc/openfire/security` is now `/resources/security`
+* `/etc/openfire/security` is now `/resources/security` 
 * Openfire runs as `daemon` instead of its own user
+
+### Upgrade Steps
 
 1. Backup `lib/embedded-db`, `lib/plugins`, and `etc`
 2. Stop and remove the v3 container.
