@@ -5,6 +5,7 @@ before_script:
 build:
   stage: build
   script:
+    - cd build
     - docker build --pull -t registry.monach.us/docker/openfire --build-arg VCS_REF=$CI_BUILD_REF .
     - docker push registry.monach.us/docker/openfire
 
