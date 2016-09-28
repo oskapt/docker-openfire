@@ -1,5 +1,7 @@
 # Openfire Docker Container
 
+[![](https://images.microbadger.com/badges/image/monachus/openfire.svg)](https://microbadger.com/images/monachus/openfire "Get your own image badge on microbadger.com")
+
 This will build a vanilla installation of [Openfire](http://www.igniterealtime.org/projects/openfire/index.jsp)
 inside of a [Docker](http://docker.io) container.  Because Openfire wants persistent data, I've copied over
 the vanilla contents of the following directories to be mounted as persistent volumes.
@@ -27,7 +29,7 @@ presume `/opt/docker/openfire`, which I'll refer to as `$rundir`.
 ### Via Docker Compose
 
 1. From `$rundir`, optionally edit `docker-compose.yml` to change the tag for the
-container. 
+container.
 2. If you don't want to use the admin console over HTTP, remove 9090 from the ports config.
 3. Run `docker-compose up` to start the container in the foreground or `docker-compose up -d` to
 start it in the background.
@@ -80,7 +82,7 @@ persistent.
 
 * `/etc/openfire` is now `/usr/share/openfire/conf`
 * There is no more `lib` directory. Plugins are at the top level.
-* `/etc/openfire/security` is now `/resources/security` 
+* `/etc/openfire/security` is now `/resources/security`
 * Openfire runs as `daemon` instead of its own user
 
 ### Upgrade Steps
