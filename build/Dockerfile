@@ -11,7 +11,7 @@ RUN apk --no-cache add ca-certificates wget
 # Install [dumb-init](https://github.com/Yelp/dumb-init)
 ENV DI_VERSION 1.1.3
 RUN cd /tmp && \
-    wget -q -O /bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_${DI_VERSION}_amd64 && \
+    wget -q -O /bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v${DI_VERSION}/dumb-init_${DI_VERSION}_amd64 && \
     chmod +x /bin/dumb-init
 
 # Install [Openfire](http://www.igniterealtime.org/projects/openfire/index.jsp)
