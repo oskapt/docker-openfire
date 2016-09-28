@@ -2,10 +2,6 @@ FROM anapsix/alpine-java
 
 MAINTAINER Adrian Goins "monachus@arces.net"
 
-ARG VCS_REF
-LABEL org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/oskapt/docker-openfire"
-
 RUN apk --no-cache add ca-certificates wget
 
 # Install [dumb-init](https://github.com/Yelp/dumb-init)
@@ -23,5 +19,9 @@ ADD start /start
 RUN chmod 755 /start
 
 EXPOSE 9090 9091 5222 5223 5269
+
+ARG VCS_REF
+LABEL org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url="https://github.com/oskapt/docker-openfire"
 
 CMD ["dumb-init", "/start"]

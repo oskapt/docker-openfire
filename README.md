@@ -23,16 +23,13 @@ If you prefer to build the container yourself, you'll need to do some prep work.
 ## Running The Container
 
 Copy the contents of the `run` directory to a location on the filesystem from where you run containers.
-I keep all container operations under `/opt/docker/<container>`, so for the rest of this document I'll
-presume `/opt/docker/openfire`, which I'll refer to as `$rundir`.
+I keep all container operations under `/opt/docker/<container>`, so for the rest of this document I'll presume `/opt/docker/openfire`, which I'll refer to as `$rundir`.
 
 ### Via Docker Compose
 
-1. From `$rundir`, optionally edit `docker-compose.yml` to change the tag for the
-container.
+1. From `$rundir`, optionally edit `docker-compose.yml` to change the tag for the container.
 2. If you don't want to use the admin console over HTTP, remove 9090 from the ports config.
-3. Run `docker-compose up` to start the container in the foreground or `docker-compose up -d` to
-start it in the background.
+3. Run `docker-compose up` to start the container in the foreground or `docker-compose up -d` to start it in the background.
 
 ### Manually
 
@@ -65,7 +62,9 @@ is provided in case your origin container only provides the JRE.
 
 2. Follow along with the post, changing `/etc/openfire/security` to `/usr/share/openfire/resources/security`
 
-## Uprading The Container (minor versions)
+In case that post disappears in the future, an abridged version of it is saved [here](SSL_CERTIFICATES.md).
+
+## Upgrading The Container (minor versions)
 
 When the time comes to upgrade the container, it's quite simple.
 
