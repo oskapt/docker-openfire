@@ -1,0 +1,22 @@
+before_script:
+  - docker info
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.monach.us
+
+build:
+  stage: build
+  script:
+    - docker build --pull -t registry.monach.us/docker/openfire --build-arg VCS_REF=$CI_BUILD_REF .
+    - docker push registry.monach.us/docker/openfire
+
+push_to_docker_hub:
+  stage: deploy
+  script:
+    - docker login -u $HUB_USERNAME -p $HUB_PASSWORD
+    - docker tag registry.monach.us/docker/openfire:latest monachus/openfire:latest
+    - docker push monachus/openfire
+
+ping_microbadger:
+  stage: deploy
+  script:
+    - curl -XPOST https://hooks.microbadger.com/images/monachus/openfire/4POfPA2VlfMloTzUFD50AF1fiMY=
+
