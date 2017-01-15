@@ -8,15 +8,15 @@ The original post from [here](https://blog.bigdinosaur.org/openfire-and-ssl-slas
   * These instructions will assume the names of `openfire.crt`, `openfire.key` and `ca.crt` for the Intermediate CA certificate. When asked for a password, if you haven't changed it, use the default password of `changeit`.
 2. Convert your certificate
 ```
-openssl x509 -in /openfire.crt -inform PEM -out ./cert.der -outform DER
+openssl x509 -in ./openfire.crt -inform PEM -out ./cert.der -outform DER
 ```
 3. Convert your key
 ```
-openssl pkcs8 -topk8 -nocrypt -in /openfire.key -inform PEM -out ./key.der -outform DER
+openssl pkcs8 -topk8 -nocrypt -in ./openfire.key -inform PEM -out ./key.der -outform DER
 ```
 4. Convert your CA certificate (if necessary)
 ```
-openssl x509 -in /openfire.crt -inform PEM -out ./cert.der -outform DER
+openssl x509 -in ./ca.crt -inform PEM -out ./ca.der -outform DER
 ```
 5. Concatenate your cert with the CA cert (if necessary)
 ```
@@ -44,11 +44,15 @@ cd /usr/share/openfire/resources/security
 
 ### Check that truststore has your CA in it
 
-Search through the output of `keytool -list -keystore truststore` for your CA. If it's not present, find their root certificate and import it. The example presumes that the CA root certificate is in the current directory as `ca.cer`.
+Search through the output of `keytool -list -keystore truststore` for your CA. If it's not present, find their root certificate and import it. The example presumes that the CA root certificate is in the current directory as `root.der`.
+
+If you have a root certificate that isn't in DER format, convert it using the commands above (replacing root.crt and root.der as appropriate).
 
 ```
-keytool -importcert -alias "myrootca" -keystore truststore -file ca.cer
+keytool -importcert -alias "myrootca" -keystore truststore -file root.der
 ```
+
+If you're not sure if the CA certificate already exists, it's safe to import it under a different alias. If the certificate is already present, `keytool` will tell you and ask if you want to import it again. In this case, decline, and continue.
 
 After doing the import, run `keytool -list -keystore truststore` again and make sure that the certificate was imported properly.
 
@@ -65,7 +69,7 @@ Repeat that command for all aliases that exist.
 
 You should have `KeyStoreImport.class` in the directory where you're working, since it's installed as part of the container. Use this to import your new certificate. You will be asked for two passwords - the first is the keystore password you've been using. The second is the password that Openfire uses to access the private key. This is set to `changeit` by default within Openfire, so unless you've changed it, enter that here as well.
 ```
-java KeyStoreImport keystore cert.der key.der "alias-for-your-cert"
+java KeyStoreImport keystore chaincert.der key.der "alias-for-your-cert"
 
 Keystore password:
 changeit

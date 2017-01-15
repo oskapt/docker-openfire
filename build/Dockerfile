@@ -11,7 +11,7 @@ RUN cd /tmp && \
     chmod +x /bin/dumb-init
 
 # Install [Openfire](http://www.igniterealtime.org/projects/openfire/index.jsp)
-ENV OF_VERSION 4.0.3
+ENV OF_VERSION 4.1.1
 RUN cd /usr/share && \
     wget -q -O - http://www.igniterealtime.org/downloadServlet?filename=openfire/openfire_$( echo ${OF_VERSION} | sed -e 's/\./_/g' ).tar.gz | tar xzf -
 
